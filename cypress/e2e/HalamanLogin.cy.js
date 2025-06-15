@@ -7,6 +7,5 @@ describe('Fitur login', () => {
     cy.visit('https://www.saucedemo.com/')
 detailLoginPage.login('standard_user', 'secret_sauce')
 
-  
   })
 })
