@@ -20,7 +20,7 @@ jobs:
           node-version: 18
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install
 
       - name: Run Cypress tests on Dashboard
         run: npx cypress run --record --key ${{ secrets.CYPRESS_RECORD_KEY }}
@@ -33,3 +33,4 @@ jobs:
           path: |
             cypress/videos
             cypress/screenshots
+
