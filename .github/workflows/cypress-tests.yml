@@ -22,8 +22,10 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Run Cypress tests on Dashboard
-        run: npx cypress run --record --key ${{ secrets.CYPRESS_RECORD_KEY }}
+      - name: Run Cypress tests with recording
+  env:
+    CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+  run: npx cypress run --record --key $CYPRESS_RECORD_KEY
 
       - name: Upload Cypress artifacts
         if: always()
