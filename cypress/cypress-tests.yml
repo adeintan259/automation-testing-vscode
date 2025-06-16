@@ -1,17 +1,17 @@
-name: Run Cypress Tests
+name: Cypress Tests
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
-  run-tests:
+  cypress-run:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
+      - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Setup Node.js
@@ -19,15 +19,17 @@ jobs:
         with:
           node-version: 18
 
-      - name: Install Dependencies
-        run: npm ci
+      - name: Install dependencies
+        run: npm install
 
-      - name: Run Cypress Tests
-        run: npx cypress run
+      - name: Run Cypress tests with recording
+        env:
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+        run: npx cypress run --record --key $CYPRESS_RECORD_KEY
 
-      - name: Upload Cypress Videos and Screenshots
+      - name: Upload Cypress artifacts
         if: always()
-        uses: actions/upload-artifact@4.3.1
+        uses: actions/upload-artifact@v4
         with:
           name: cypress-artifacts
           path: |
